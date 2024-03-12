@@ -1,0 +1,281 @@
+Sujet N°2 : Gestion d’une salle de spectacle
+La société loisir et compagnie chargée de gérer des salles de spectacles vous invite à lui mettre en place une base de données pour lui faciliter sa gestion.
+La société dispose de plusieurs salles de spectacle dans toutes les communes du Bénin.
+Les spectacles sont programmés à l’avance et les salles occupées ont des capacités différentes et sont de différents types
+Un spectacle c’est une ou plusieurs représentations d’un ou de plusieurs artistes. Chaque représentation a lieu dans une salle donnée, à une date donnée et à une heure donnée.
+Pour un spectacle, il y a toujours un artiste principal qui se produit à toutes les représentations du spectacle et des artistes secondaires qui sont programmés pour certaines représentations du spectacle.
+Les tickets sont de différents types (réservations, place assise, place debout, etc.) et leurs prix varient selon la représentation et le type. A la fin de chaque représentation, le nombre de tickets vendus par type est enregistré.
+
+Propriétés
+Désignation en clair
+NumSpectacle
+Numéro du spectacle
+NomSpectacle
+Nom du spectacle
+NumSalle
+Numéro de la salle
+Capacité
+Capacité de la salle
+TypeSalle
+Type de la salle
+NumArtiste
+Numéro d’un artiste
+NomArtiste
+Nom d’un artiste
+NumReprésentation
+Numéro d’une représentation
+DateReprésentation
+Date de la représentation
+HdebReprésentation
+Heure de début d’une représentation
+HfinReprésentation
+Heure de fin d’une représentation
+CodeTicket
+Co
+Libellé
+Libellé du type de ticket
+Montant
+Montant d’un type de ticket pour une représentation
+Nbticket
+Nombre de ticket d’un type donné vendu pour une représentation
+
+La société aimerait que la base de données puisse répondre aux requêtes suivantes :
+Liste des spectacles programmés dans une salle
+Dates et heures de représentation d’un artiste donné
+Liste des artistes qui doivent se produire à un spectacle donné
+Liste des salles qui n’ont jamais accueilli la représentation d’un artiste donné
+Nombre de tickets vendus pour une représentation donnée
+Nombre de places inoccupées au cours d’une représentation
+Recette totale pour une représentation
+Recette totale pour un spectacle
+Heure de début et de fin et liste des salles des représentations d’un spectacle d’un artiste donné
+Liste des salles disponibles à une période donnée
+Résultat 1.	Dictionnaire de données
+Propriétés
+Désignation en clair
+Nature
+Type
+Longueur
+Observation
+NumSpectacle
+Numéro du spectacle
+E
+N
+11
+-
+NomSpectacle
+Nom du spectacle
+E
+C
+255
+-
+NumSalle
+Numéro de la salle
+E
+N
+11
+-
+Capacité
+Capacité de la salle
+E
+N
+11
+-
+TypeSalle
+Type de la salle
+E
+C
+50
+-
+NumArtiste
+Numéro d’un artiste
+E
+N
+11
+-
+NomArtiste
+Nom d’un artiste
+E
+C
+50
+-
+
+
+NumReprésentation
+Numéro d’une représentation
+E
+N
+11
+-
+DateReprésentation
+Date de la représentation
+E
+D
+10
+jj-mm-aaaa
+HdebReprésentation
+Heure de début d’une représentation
+E
+D
+5
+hh:mm
+HfinReprésentation
+Heure de fin d’une représentation
+E
+D
+5
+hh:mm
+CodeTicket
+Co
+E
+N
+11
+-
+Libellé
+Libellé du type de ticket
+E
+C
+50
+-
+Montant
+Montant d’un type de ticket pour une représentation
+E
+N
+11
+-
+Nbticket
+Nombre de ticket d’un type donné vendu pour une représentation
+E
+N
+11
+-
+
+2. Clé primaire
+Attributs candidats à l'élection de la clé primaire
+NumSpectacle, NumSalle, NumArtiste, , NumReprésentation,CodeTicket
+Dépendances fonctionnelle entre attributs candidats à l'élection de la clé primaire
+NumReprésentation → NumSalle
+Clé primaire est : NumSpectacle, NumArtiste,  NumReprésentation,CodeTicket
+Première forme normale
+R (NumSpectacle, NumArtiste, NumReprésentation,CodeTicket, NomSpectacle, NumSalle, Capacité,
+TypeSalle, NomArtiste, DateReprésentation, HdebReprésentation, HfinReprésentation, Libellé, Montant, Nbticket)
+Deuxième forme normale
+Spectacle(NumSpectacle, NomSpectacle)
+Représentation (NumReprésentation, NumSalle, Capacité, TypeSalle, DateReprésentation,
+HdebReprésentation, HfinReprésentation)
+Artist(NumArtiste, NomArtiste)
+Ticket(CodeTicket, Libellé)
+Ticket_Représentation(CodeTicket, NumReprésentation, Montant, Nbticket)
+Troisième forme normale
+Spectacle( NumSpectacle, NomSpectacle)
+Artiste_Principale(NumSpectacle,, #NumArtiste)
+Représentation (NumReprésentation, #NumSalle, DateReprésentation, HdebReprésentation,
+HfinReprésentation)
+Salle (NumSalle, Capacité, TypeSalle)
+Artist(NumArtiste, NomArtiste)
+Ticket(CodeTicket, Libellé)
+Ticket_Représentation(#CodeTicket, #NumReprésentation, Montant, Nbticket) 
+Liste_Representations(#NumSpectacle, #NumReprésentation)
+Liste_Artistes( #NumReprésentation, #NumArtiste)
+Couverture minimale
+NumSpectacle → NomSpectacle, NumArtiste
+NumReprésentation → NumSalle, DateReprésentation, HdebReprésentation, HfinReprésentation
+NumSalle → Capacité, TypeSalle
+NumArtiste → NomArtiste
+CodeTicket → Libellé
+CodeTicket, NumReprésentation → Montant, Nbticket
+NumSpectacle, NumReprésentation →
+NumReprésentation, NumArtiste →
+Type de dépendances fonctionnelles
+a. Dépendances fonctionnelles simple
+NumSpectacle → NomSpectacle
+NumReprésentation → DateReprésentation, HdebReprésentation, HfinReprésentation
+NumSalle → Capacité, TypeSalle
+NumArtiste → NomArtiste
+CodeTicket → Libellé
+b. Dépendances fonctionnelles a sources composés
+CodeTicket, NumReprésentation → Montant, Nbticket
+NumSpectacle, NumReprésentation →
+NumReprésentation, NumArtiste →
+c. Dépendances fonctionnelles avec identifiant en source et identifiant en but
+NumSpectacle → NumArtiste
+NumReprésentation → NumSalle
+Modèle conceptuel de données
+Algèbre relationnelle
+Spectacle(NumSpectacle, NomSpectacle)
+Artiste_Principale(NumSpectacle,, #NumArtiste)
+Représentation (NumReprésentation, #NumSalle, DateReprésentation, HdebReprésentation,
+HfinReprésentation)
+Salle (NumSalle, Capacité, TypeSalle)
+Artist(NumArtiste, NomArtiste)
+Ticket(CodeTicket, Libellé)
+Ticket_Représentation(#CodeTicket, #NumReprésentation, Montant, Nbticket)
+Liste_Representations(#NumSpectacle, #NumReprésentation)
+Liste_Artistes( #NumReprésentation, #NumArtiste)
+Liste des spectacles programmés dans une salle
+R1 = JOINTURE (Spectacle, Liste_Representations, Spectacle.NumSpectacle =
+Liste_Representations.NumSpectacle)
+R2 = JOINTURE (R1, Représentation, R1.NumReprésentation = Représentation.NumReprésentation)
+R3 = SELECTION.R2 (NumSalle = X)
+R4 = PROJECTION.R3 (NumSpectacle, NomSpectacle)
+Dates et heures de représentation d’un artiste donné
+R1 = JOINTURE(Représentation, Liste_Artistes, Représentation.NumReprésentation =
+Liste_Artistes.NumReprésentation)
+R2 = SELECTION.R1(NumArtiste = X)
+R3 = PROJECTION.R2(DateReprésentation, HdebReprésentation, HfinReprésentation)
+Liste des artistes qui doivent se produire à un spectacle donné
+R1 = JOINTURE(Liste_Artistes, Liste_Representations, Liste_Representations.NumReprésentation =
+Liste_Artistes.NumReprésentation)
+R2 = JOINTURE(R1, Artist, R1.NumArtiste = Artist.NumArtiste)
+R3 = SELECTION.R2(NumSpectacle = X)
+R4 = PROJECTION.R3(NumArtiste, NomArtiste)
+Liste des salles qui n’ont jamais accueilli la représentation d’un artiste donné
+R1 = JOINTURE(Liste_Artistes, Représentation, Liste_Artistes.NumReprésentation =
+Représentation.NumReprésentation)
+R2 = JOINTURE(R1, Salle, R1.NumSalle = Salle.NumSalle)
+R3 = SELECTION.R2(NumArtiste = X)
+R4 = PROJECTION.R3(NumSalle, Capacité, TypeSalle)
+R5 = DIFFERENCE(Salle, R4)
+Nombre de tickets vendus pour une représentation donnée
+R1 = REGROUPEMENT(Ticket_Représentation, NumReprésentation, SOMME(Nbticket)) R2 = SELECTION.R1(NumReprésentation = X)
+Nombre de places inoccupées au cours d’une représentation
+R1 = JOINTURE(Salle, Représentation, Salle.NumSalle = Représentation.NumSalle)
+R2 = JOINTURE(R1,Ticket_Représentation, R1.NumReprésentation = Ticket_Représentation.NumReprésentation)
+R3 = SELECTION.R2(NumReprésentation = X)
+R4 = REGROUPEMENT(R3, NumReprésentation, SOMME(Nbticket)  COMME NB_TICKETS_TOTAL)
+R5 = JOINTURE(R4, Représentation, R4.NumReprésentation = Représentation.NumReprésentation)
+R6 = JOINTURE(R5, Salle, R5.NumSalle = Salle.NumSalle)
+R7 = PROJECTION.R6(Capacité - NB_TICKETS_TOTAL COMME Nombre_de_places_inoccupées)
+Recette totale pour une représentation
+R1 = PROJECTION.Ticket_Représentation(CodeTicket, NumReprésentation, Montant, Nbticket, Montant *
+Nbticket COMME SOUS_TOTAL)
+R2 = REGROUPEMENT(R1, NumReprésentation, SOMME(SOUS_TOTAL) COMME RECETTE)
+R3 = SELECTION.R2(NumReprésentation = X)
+R4 = PROJECTION.R3(NumReprésentation, RECETTE)
+Recette totale pour un spectacle
+R1 = JOINTURE(Ticket_Représentation, Liste_Representations, Ticket_Représentation.NumReprésentation =
+Liste_Representations.NumReprésentation)
+R2 = PROJECTION.R1(NumSpectacle, CodeTicket, NumReprésentation, Montant, Nbticket, Montant * Nbticket
+COMME SOUS_TOTAL)
+R3 = REGROUPEMENT(R2, NumSpectacle, SOMME(SOUS_TOTAL) COMME RECETTE)
+R4 = SELECTION.R3(NumSpectacle = X)
+R5 = PROJECTION.R4(NumSpectacle, RECETTE)
+Heure de début et de fin et liste des salles des représentations d’un spectacle d’un artiste donné
+Spectacle(NumSpectacle, NomSpectacle)
+Artiste_Principale(NumSpectacle,, #NumArtiste)
+Représentation (NumReprésentation, #NumSalle, DateReprésentation, HdebReprésentation,
+HfinReprésentation)
+Salle (NumSalle, Capacité, TypeSalle)
+Artist(NumArtiste, NomArtiste)
+Ticket(CodeTicket, Libellé)
+Ticket_Représentation(#CodeTicket, #NumReprésentation, Montant, Nbticket)
+Liste_Representations(#NumSpectacle, #NumReprésentation)
+Liste_Artistes( #NumReprésentation, #NumArtiste)
+R1 = JOINTURE(Spectacle, Liste_Representations, Spectacle.NumSpectacle =
+Liste_Representations.NumSpectacle)
+R2 = JOINTURE(R1, Représentation, R1.NumReprésentation =  Représentation.NumReprésentation)
+R3 = JOINTURE(R2, Salle, R2.NumSalle = Salle.NumSalle)
+R4 = JOINTURE(R3, Liste_Artistes, R3.NumReprésentation = Liste_Artistes.NumReprésentation)
+R5 = SELECTION.R4(NumSpectacle = X ET NumArtiste = X)
+R6 = PROJECTION.R5(NumSalle, Capacité, TypeSalle, HdebReprésentation, HfinReprésentation)
+10. Liste des salles disponibles à une période donnée
