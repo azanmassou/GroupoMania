@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Route::view('/', 'welcome');
+Route::view('contact', 'contact');
+
+
+Route::get('/clients', [ClientsController::class, 'list']);
+Route::post('/clients', [ClientsController::class, 'store']);
+

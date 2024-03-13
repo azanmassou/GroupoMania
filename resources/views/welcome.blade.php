@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -130,4 +130,14 @@
             </div>
         </div>
     </body>
-</html>
+</html> --}}
+
+@extends('layout')
+
+@extends('navbar')
+
+@section('content')
+    
+<h3 class="text-center m-4">Bienvenue sur le Site de Loisir & Compagnie</h3>
+
+@endsection
