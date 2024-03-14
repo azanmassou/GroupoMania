@@ -134,7 +134,7 @@
 
 @extends('layout')
 
-@extends('navbar')
+@extends('includes.navbar')
 
 @section('content')
     

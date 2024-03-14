@@ -151,22 +151,32 @@ N
 -
 
 2. Clé primaire
+
 Attributs candidats à l'élection de la clé primaire
+
 NumSpectacle, NumSalle, NumArtiste, , NumReprésentation,CodeTicket
+
 Dépendances fonctionnelle entre attributs candidats à l'élection de la clé primaire
+
 NumReprésentation → NumSalle
 Clé primaire est : NumSpectacle, NumArtiste,  NumReprésentation,CodeTicket
+
 Première forme normale
+
 R (NumSpectacle, NumArtiste, NumReprésentation,CodeTicket, NomSpectacle, NumSalle, Capacité,
 TypeSalle, NomArtiste, DateReprésentation, HdebReprésentation, HfinReprésentation, Libellé, Montant, Nbticket)
+
 Deuxième forme normale
+
 Spectacle(NumSpectacle, NomSpectacle)
 Représentation (NumReprésentation, NumSalle, Capacité, TypeSalle, DateReprésentation,
 HdebReprésentation, HfinReprésentation)
 Artist(NumArtiste, NomArtiste)
 Ticket(CodeTicket, Libellé)
 Ticket_Représentation(CodeTicket, NumReprésentation, Montant, Nbticket)
+
 Troisième forme normale
+
 Spectacle( NumSpectacle, NomSpectacle)
 Artiste_Principale(NumSpectacle,, #NumArtiste)
 Représentation (NumReprésentation, #NumSalle, DateReprésentation, HdebReprésentation,
@@ -177,7 +187,9 @@ Ticket(CodeTicket, Libellé)
 Ticket_Représentation(#CodeTicket, #NumReprésentation, Montant, Nbticket) 
 Liste_Representations(#NumSpectacle, #NumReprésentation)
 Liste_Artistes( #NumReprésentation, #NumArtiste)
+
 Couverture minimale
+
 NumSpectacle → NomSpectacle, NumArtiste
 NumReprésentation → NumSalle, DateReprésentation, HdebReprésentation, HfinReprésentation
 NumSalle → Capacité, TypeSalle
@@ -186,22 +198,29 @@ CodeTicket → Libellé
 CodeTicket, NumReprésentation → Montant, Nbticket
 NumSpectacle, NumReprésentation →
 NumReprésentation, NumArtiste →
+
 Type de dépendances fonctionnelles
+
 a. Dépendances fonctionnelles simple
 NumSpectacle → NomSpectacle
 NumReprésentation → DateReprésentation, HdebReprésentation, HfinReprésentation
 NumSalle → Capacité, TypeSalle
 NumArtiste → NomArtiste
 CodeTicket → Libellé
+
 b. Dépendances fonctionnelles a sources composés
 CodeTicket, NumReprésentation → Montant, Nbticket
 NumSpectacle, NumReprésentation →
 NumReprésentation, NumArtiste →
+
 c. Dépendances fonctionnelles avec identifiant en source et identifiant en but
 NumSpectacle → NumArtiste
 NumReprésentation → NumSalle
+
 Modèle conceptuel de données
+
 Algèbre relationnelle
+
 Spectacle(NumSpectacle, NomSpectacle)
 Artiste_Principale(NumSpectacle,, #NumArtiste)
 Représentation (NumReprésentation, #NumSalle, DateReprésentation, HdebReprésentation,
@@ -212,13 +231,17 @@ Ticket(CodeTicket, Libellé)
 Ticket_Représentation(#CodeTicket, #NumReprésentation, Montant, Nbticket)
 Liste_Representations(#NumSpectacle, #NumReprésentation)
 Liste_Artistes( #NumReprésentation, #NumArtiste)
+
 Liste des spectacles programmés dans une salle
+
 R1 = JOINTURE (Spectacle, Liste_Representations, Spectacle.NumSpectacle =
 Liste_Representations.NumSpectacle)
 R2 = JOINTURE (R1, Représentation, R1.NumReprésentation = Représentation.NumReprésentation)
 R3 = SELECTION.R2 (NumSalle = X)
 R4 = PROJECTION.R3 (NumSpectacle, NomSpectacle)
+
 Dates et heures de représentation d’un artiste donné
+
 R1 = JOINTURE(Représentation, Liste_Artistes, Représentation.NumReprésentation =
 Liste_Artistes.NumReprésentation)
 R2 = SELECTION.R1(NumArtiste = X)
