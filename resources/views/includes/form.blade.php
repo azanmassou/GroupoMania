@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="entreprise_id">Status</label>
+    <label for="entreprise_id">Entreprise</label>
     <select name="entreprise_id" id="" class="custom-select @error('entreprise_id') is-invalid @enderror">
         @foreach($entreprises as $entreprise)
         <option value="{{$entreprise->id}}" {{$client->entreprise_id == $entreprise->id ? 'selected' : ''}}>{{$entreprise->name}}</option>

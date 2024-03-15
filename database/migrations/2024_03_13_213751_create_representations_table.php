@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('representations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('salle_id');
             $table->date('DateRepresentation')->nullable();
             $table->time('HdebRepresentation')->nullable();
             $table->time('HfinRepresentation')->nullable();

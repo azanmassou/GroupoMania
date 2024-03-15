@@ -14,7 +14,7 @@
             <li><em>{{ $client->status }}</em></li>
             <li><em>{{ $client->entreprise->name }}</em></li>
         </ul>
-        <form method="post" action="/clients/{{ $client->id }}" style="display:inline">
+        <form method="post" action="{{ route('clients.show', ['client' => $client->id])}}" style="display:inline">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Supprimer le Client</button>

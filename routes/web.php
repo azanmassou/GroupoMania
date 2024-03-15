@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SallesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,12 @@ Route::get('/', function () {
 // Routes Contact 
 
 // Route::get('/contact', [ClientsController::class, 'index']);
-Route::get('/contact', [ContactController::class, 'create']);
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store']);
 
+
+// Routes Salles
+Route::get('/salles', [SallesController::class, 'index'])->name('salles.index');
 
 // Routes Blog
 
@@ -42,7 +46,7 @@ Route::post('/contact', [ContactController::class, 'store']);
 //             'link' => \route('show', ['id' =>14 ,'slug' => 'Je-sjhdh-shh'])
 //         ];
 //     })->name('index');
-    
+
 //     Route::get('/{slug}-{id}', function (Request $request, $slug, $id) {
 //         return [
 //             // 'id'=> $id,
@@ -50,23 +54,28 @@ Route::post('/contact', [ContactController::class, 'store']);
 //             'url' => $request->url(),
 //         ];
 //     })->where(['id'=> '[0-9]+', 'slug'=>'[0-9a-z-AZ\-]+'])->name('show');
-    
-    
+
+
 // });
 
-
-
+Route::prefix('/clients')->controller(ClientsController::class)->group(function () {
+    Route::get('/','index')->name('clients.index');
+    Route::get('/create','create')->name('clients.create');
+    Route::post('/', 'store')->name('clients.store');
+    Route::get('/{client}','show')->name('clients.show');
+    Route::get('/{client}/edit','edit')->name('clients.edit');
+    Route::patch('/{client}','update')->name('clients.update');
+    Route::delete('/{client}','destroy')->name('clients.destroy');
+});
 
 // Routes Clients
-Route::get('/clients', [ClientsController::class, 'index']);
-Route::get('/clients/create', [ClientsController::class, 'create']);
-Route::post('/clients', [ClientsController::class, 'store']);
-Route::get('/clients/{client}', [ClientsController::class, 'show']);
-Route::get('/clients/{client}/edit', [ClientsController::class, 'edit']);
-Route::patch('/clients/{client}', [ClientsController::class, 'update']);
-Route::delete('/clients/{client}', [ClientsController::class, 'destroy']);
+// Route::get('/clients', [ClientsController::class, 'index'])->name('clients.index');
+// Route::get('/clients/create', [ClientsController::class, 'create']);
+// Route::post('/clients', [ClientsController::class, 'store']);
+// Route::get('/clients/{client}', [ClientsController::class, 'show']);
+// Route::get('/clients/{client}/edit', [ClientsController::class, 'edit']);
+// Route::patch('/clients/{client}', [ClientsController::class, 'update']);
+// Route::delete('/clients/{client}', [ClientsController::class, 'destroy']);
+
+
 // Route::resource('clients', 'ClientsController');
-
-
-
-

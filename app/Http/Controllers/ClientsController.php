@@ -13,7 +13,7 @@ class ClientsController extends Controller
 
     public function index()
     {
-        $clients = Client::all();
+        $clients = Client::paginate(5);
         // $clients = Client::status();
         $entreprises = Entreprise::all();
         return view('clients.index', compact('clients', 'entreprises'));
@@ -45,7 +45,7 @@ class ClientsController extends Controller
 
         Client::create($datas);
 
-        return redirect('/clients')->with('message', 'Ajout Effectif');
+        return redirect('/clients')->with('message', 'Le client a ete ajoute avec success');
     }
     public function show(Client $client)
     {
@@ -71,7 +71,7 @@ class ClientsController extends Controller
 
         $client->update($data);
 
-        session()->flash('message','Mise a jour Effective');
+        session()->flash('message','Le client a ete mise a jour avec success');
         
         return view('clients.show', compact('client'));
     }
@@ -80,6 +80,6 @@ class ClientsController extends Controller
     {   
         $client->delete();
 
-        return redirect('/clients')->with('message', 'Suppression Effective');
+        return redirect('/clients')->with('message', 'Le client a ete supprime avec success');
     }
 }

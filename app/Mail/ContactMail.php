@@ -52,6 +52,6 @@ class ContactMail extends Mailable
      */
     public function attachments(): array
     {
-        return [$this->data];
+        return [];
     }
 }
