@@ -9,7 +9,8 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
-                <form action="../../index3.html" method="post">
+                <form action="{{route('login')}}" method="post">
+                    @csrf
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email">
                         <div class="input-group-append">
