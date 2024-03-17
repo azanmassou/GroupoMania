@@ -1,6 +1,6 @@
 @extends('layout')
 
-@extends('includes.navbar')
+@extends('includes.Templates.navbar')
 
 @section('title')
     Create Client

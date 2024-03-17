@@ -42,4 +42,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    protected $attributes = [
+        'isAdmin' => 0,
+    ];
+
+    public function getIsAdminAttribute($attributes)
+    {
+
+        return $this->getIsAdminOptions()[$attributes];
+    }
+    public function getIsAdminOptions()
+    {
+        return [
+            '1' => 'Oui',
+            '0' => "Non",
+        ];
+    }
 }

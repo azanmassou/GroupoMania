@@ -2,85 +2,95 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Representation;
 use App\Models\Salle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SallesController extends Controller
 {
     //
-    
+
     public function index()
     {
-        $salles = Salle::paginate(5);
+        $salles = Salle::paginate(5)->fragment('salle');
+        // $salles = Salle::paginate(5)->fragment('salle');
+        // $salle = DB::table('salles')->paginate(5);
+        // dd($salle);
         // $salles = Salle::where('id',2)->get();
-        // dd($salles);
-        // $clients = Client::status();
-        // $entreprises = Entreprise::all();
-        return view('salles.index', compact('salles'));
+        // $representation = Salle::find(2)->representation;
+        return view('salles.index', compact('salles',));
     }
-    // public function create()
-    // {
-    //     $client = new Client;
-    //     // $clients = Client::status();
-    //     $entreprises = Entreprise::all();
-    //     return view('clients.create', compact('client', 'entreprises'));
-    // }
-    // public function store()
-    // {
-    //     $datas = request()->validate([
-    //         'name' => 'required|min:5|max:20',
-    //         'email' => 'required|email',
-    //         'status' => 'required|integer',
-    //         'entreprise_id' => 'required|integer',
-    //     ]);
+    public function create()
+    {
+        $salle = new Salle;
 
-    //     // $name = request('name');
-    //     // $email = request('email');
-    //     // $status = request('status');
-    //     // $client = new Client();
-    //     // $client->name = $name;
-    //     // $client->email = $email;
-    //     // $client->status = $status;
-    //     // $client->save();
+        // $clients = Client::status();
 
-    //     Client::create($datas);
+        $representations = Representation::all();
 
-    //     return redirect('/clients')->with('message', 'Ajout Effectif');
-    // }
-    // public function show(Client $client)
-    // {
-    //     // $client = Client::where('id',$client)->firstOrFail();
-    //     // $client = Client::find($client);
-    //     return view('clients.show', compact('client'));
-    // }
-    // public function edit(Client $client)
-    // {
-    //     $entreprises = Entreprise::all();
+        return view('salles.create', compact('salle', 'representations'));
+    }
+    public function store(Request $request)
+    {
+        $validatedData = request()->validate([
+            'TypeSalle' => ['required', 'unique:salles', 'max:40'],
+            'Capacite' => ['required', 'integer'],
 
-    //     return view('clients.edit', compact('client', 'entreprises'));
-    // }
-    // public function update(Client $client)
-    // {
-    //     $data = request()->validate([
-    //         'name' => 'required|min:5|max:20',
-    //         'email' => 'required|email',
-    //         'status' => 'required|integer',
-    //         'entreprise_id' => 'required|integer',
-    //     ]);
+        ]);
 
 
-    //     $client->update($data);
+        // $token = csrf_token();
+        //
 
-    //     session()->flash('message','Mise a jour Effective');
-        
-    //     return view('clients.show', compact('client'));
-    // }
 
-    // public function destroy(Client $client)
-    // {   
-    //     $client->delete();
+        $data = session('name');
 
-    //     return redirect('/clients')->with('message', 'Suppression Effective');
-    // }
-    
+        dd($data);
+
+        // Salle::create($validatedData);
+
+        return redirect('/salles')->with('message', 'La Salle a ete ajoute avec succes');
+    }
+    public function show(Salle $salle)
+    {
+        // $client = Client::where('id',$client)->firstOrFail();
+
+        $representations = Salle::find($salle->id)->representation;
+
+        // dd($representations);
+
+        // $client = Client::find($client);
+
+        return view('salles.show', compact('salle', 'representations'));
+    }
+    public function edit(Salle $salle)
+    {
+        // $entreprises = Entreprise::all();
+
+        return view('salles.edit', compact('salle',));
+    }
+    public function update(Salle $salle)
+    {
+        $data = request()->validate([
+            'TypeSalle' => 'required|min:1|max:30',
+            'Capacite' => 'required|integer',
+            // 'status' => 'required|integer',
+            // 'entreprise_id' => 'required|integer',
+        ]);
+
+
+        $salle->update($data);
+
+        session()->flash('message', 'La Salle a ete modifie avec succes');
+
+        return view('salles.show', compact('salle'));
+    }
+
+    public function destroy(Salle $salle)
+    {
+        $salle->delete();
+
+        return redirect('/salles')->with('message', 'La Salle a ete supprime avec succes');
+    }
 }

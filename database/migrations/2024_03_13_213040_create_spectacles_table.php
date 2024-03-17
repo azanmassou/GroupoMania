@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('spectacles', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('artiste_id');
             $table->string('NomSpectacle');
             $table->timestamps();
         });

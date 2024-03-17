@@ -32,12 +32,13 @@ class Client extends Model
 
         return $this->getStatusOptions()[$attributes];
     }
-    public function getStatusOptions()
-    {
-        return [
-            '1' => 'Actif',
-            '0' => "Inactif",
-            '2' => "En Attente"
-        ];
-    }
+
+    // public function getStatusOptions()
+    // {
+    //     return [
+    //         '1' => 'Actif',
+    //         '0' => "Inactif",
+    //         '2' => "En Attente"
+    //     ];
+    // }
 }

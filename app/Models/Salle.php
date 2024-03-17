@@ -9,8 +9,10 @@ class Salle extends Model
 {
     use HasFactory;
 
-    public function salle()
+    protected $guarded = [];
+
+    public function representation()
     {
-        return $this->belongsTo(Representation::class);
+        return $this->hasMany(Representation::class);
     }
 }

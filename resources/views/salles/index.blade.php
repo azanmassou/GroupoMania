@@ -1,25 +1,41 @@
 @extends('layout')
 
-@extends('includes.navbar')
 
 @section('title')
-    Index Salles
+    La liste des Salles
 @endsection
 
 @section('content')
-    <div class="container my-4">
 
-        <h3>Listes de nos Salles</h3>
+    @extends('inc/templates/liste')
 
-        @foreach ($salles as $salle)
-        
-            <ul>
-                <li>
-                    <a href="/clients/{{ $salle->id }}">{{ $salle->TypeSalle }}</a>
-                </li>
-            </ul>
-        @endforeach
-        
-        <a href="/salles/create" class="btn btn-primary">Ajouter une Salle</a>
-    </div>
+@section('card-title')
+    La liste des Salles
+@endsection
+
+@section('btn-title')
+Salles
+@endsection
+
+@section('route')
+    {{ route('salles.create') }}
+@endsection
+
+@section('links')
+    {{ $salles->links() }}
+@endsection
+
+@section('foreach')
+    @foreach ($salles as $salle)
+        @section('routes')
+            {{ route('salles.show', ['salle' => $salle->id]) }}
+        @endsection
+        <tr>
+            <td>{{ $salle->id }}</td>
+            <td>{{ $salle->TypeSalle }}</td>
+            <td><a class="badge bg-warning p-2" href="@yield('routes')">Details</a></td>
+        </tr>
+    @endforeach
+@endsection
+
 @endsection

@@ -134,17 +134,20 @@
 
 @extends('layout')
 
-@extends('includes.navbar')
+@extends('includes.Templates.navbar')
 
 @section('content')
-    <div class="bg-info p-4 m-4">
-        {{-- <h3 class="text-center m-4 bg-light text-info">Loisir Et Compagnie</h3> --}}
-        <div class="container alert alert-success">
+    {{-- <div class="bg-info p-4 m-4">
+        <div class="container alert alert-success my-auto">
             <h4>Check someone here quickly</h4>
             <form class="d-flex">
                 <input class="form-control me-2 ms-4 p-2" type="search" placeholder="Please tape and enter here ... " aria-label="Search">
                 <button class="btn btn-outline-warning text-dark" type="submit">Search</button>
             </form>
         </div>
-    </div>
+    </div> --}}
+    {{-- @if (Route::has('register'))
+        {{ Happy}}
+    @endif --}}
+    
 @endsection

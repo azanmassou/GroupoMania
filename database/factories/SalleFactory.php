@@ -18,7 +18,6 @@ class SalleFactory extends Factory
     {
         return [
             //
-            'representation_id' => fake()->randomNumber(),
             'TypeSalle' => fake()->userName(),
             'capacite' => fake()->randomNumber(),
         ];

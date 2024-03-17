@@ -219,6 +219,7 @@ NumReprésentation → NumSalle
 
 Modèle conceptuel de données
 
+
 Algèbre relationnelle
 
 Spectacle(NumSpectacle, NomSpectacle)
