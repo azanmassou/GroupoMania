@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -17,10 +19,18 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $attributes = [
+        'role_id' => 2,
+    ];
+
     protected $fillable = [
         'name',
+        'role_id',
         'email',
         'password',
+        'is_blocked',
+        'email_verified_token'
     ];
 
     /**
@@ -42,20 +52,36 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    protected $attributes = [
-        'isAdmin' => 0,
-    ];
 
-    public function getIsAdminAttribute($attributes)
+    public function post(): HasMany
     {
+        return $this->hasMany(Post::class);
+    }
 
-        return $this->getIsAdminOptions()[$attributes];
-    }
-    public function getIsAdminOptions()
+
+    public function role(): BelongsTo
     {
-        return [
-            '1' => 'Oui',
-            '0' => "Non",
-        ];
+        return $this->belongsTo(Role::class);
     }
+
+    /**
+     * Get the role attribute.
+     *
+     * @param  mixed  $value
+     * @return string
+     */
+    // public function getRoleAttribute($value)
+    // {
+    //     $roles = [
+    //         1 => 'admin',
+    //         2 => 'user',
+    //         3 => 'subscribed',
+    //     ];
+
+    //     return $roles[$value] ?? $value; // Retourne l'étiquette correspondante ou l'entier tel quel
+    // }
+
+
+
+    
 }

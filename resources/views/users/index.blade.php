@@ -1,8 +1,7 @@
 @extends('layout')
 
-
 @section('title')
-    La liste des utilisateurs
+    La liste des Utilisateurs
 @endsection
 
 @section('content')
@@ -10,11 +9,20 @@
     @extends('inc/templates/liste')
 
 @section('card-title')
-    La liste des utilisateurs
+<div class="input-group input-group-sm" style="width: 150px;">
+    <input type="text" name="table_search" class="form-control float-left"
+            placeholder="Search">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    {{-- <a href="@yield('route')" class="btn btn-primary">Ajouter un @yield('btn-title')</a> --}}
+</div>
 @endsection
 
 @section('btn-title')
-    utilisateur
+    Utilisateur
 @endsection
 
 @section('route')
@@ -27,13 +35,11 @@
 
 @section('foreach')
     @foreach ($users as $user)
-        @section('routes')
-            {{ route('users.show', ['user' => $user->id]) }}
-        @endsection
         <tr>
             <td>{{ $user->id }}</td>
-            <td>{{ $user->name }}</td>
-            <td><a class="badge bg-warning p-2" href="@yield('routes')">Details</a></td>
+            <td>{{ $user->psuedo }}</td>
+            <td class="text-end"><a class="badge bg-warning p-2"
+                    href=" {{ route('users.show', ['user' => $user->id]) }}">Details</a></td>
         </tr>
     @endforeach
 @endsection

@@ -1,3 +1,6 @@
+@extends('layout')
+
+@section('content')
 <main>
     <h1 class="visually-hidden">Sidebars examples</h1>
 
@@ -4574,3 +4577,4 @@
                                             </div>
                                             
                                             </div>
+@endsection

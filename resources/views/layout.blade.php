@@ -21,7 +21,7 @@
 
     {{-- AdminLte Cdn --}}
 
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 
     {{-- FontAwesome Cdn --}}
@@ -31,18 +31,31 @@
     {{-- Icons Ionique --}}
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
+    {{-- Feuille Stylesheet --}}
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+
 
 </head>
 
-<body>
+<body class="bg-light">
 
     @if (session()->has('message'))
         <div class="alert alert-success" role="alert">
             {{ session()->get('message') }}
         </div>
     @endif
+    @if (session()->has('error'))
+        <div class="alert alert-dander" role="alert">
+            {{ session()->get('error') }}
+        </div>
+    @endif
 
     @yield('content')
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
 </body>
 
