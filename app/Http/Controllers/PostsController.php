@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
+
+
 class PostsController extends Controller
 {
     /**
@@ -21,10 +25,21 @@ class PostsController extends Controller
     {
 
         $querry =  Post::query();
+
+        $user = Auth::user();
+
+        // $querry =  User::query();
+
+        // $posts = $querry->orderBy('created_at', 'desc');
+
         $isValidSearch = false;
 
         // Récupérer tous les posts avec le nombre de likes
         $posts = $querry->withCount('likes');
+
+        // $users = $querry->withCount('post');
+
+        // dd($posts);
 
         if ($request->has('title')) {
             $requestSearch = $request->input('title');
@@ -32,12 +47,12 @@ class PostsController extends Controller
             $isValidSearch = true;
         }
 
-        $posts = $posts->paginate(5);
+        $posts = $posts->orderByDesc('created_at')->paginate(2);
 
         $user = Auth::user();
 
 
-        return view('adminer.dashboard.index', compact('user', 'posts', 'isValidSearch'));
+        return view('adminer.views.index', compact('user', 'posts',))->with('success');
     }
 
     /**
@@ -51,7 +66,7 @@ class PostsController extends Controller
 
         $post = new Post;
 
-        return view('adminer.dashboard.create', compact('post', 'user'));
+        return view('adminer.views.post-create', compact('post', 'user'));
     }
 
     /**
@@ -70,6 +85,14 @@ class PostsController extends Controller
         $imageName = null;
 
         if ($request->hasFile('image')) {
+
+            // create image manager with desired driver
+            // $manager = new ImageManager(
+            //     new Driver()
+            // );
+
+            // dd($manager);
+
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/post', $imageName);
@@ -80,19 +103,16 @@ class PostsController extends Controller
         //     $constraint->aspectRatio();
         // });
 
-        // $post = new Post();
-        // $post->title = $request->title;
-        // $post->content = $request->content;
-        // $post->image = $imageName;
-        // $post->save();
 
         $creadentials['user_id'] = $user_id;
 
         $creadentials['image'] = $imageName;
 
+        $creadentials['iSet'] = "Add New Post";
+
         $post = Post::create($creadentials);
 
-        return to_route('posts.show', ['post' => $post->id]);
+        return to_route('posts.dashbord')->with('success', 'Adding Successfully');
     }
 
     /**
@@ -103,6 +123,20 @@ class PostsController extends Controller
 
         return view('adminer.dashboard.show', compact('post',));
     }
+    public function me()
+    {
+        $user = Auth::user();
+
+        // dd($user);
+
+        $posts = Post::where('user_id', $user->id)->orderByDesc('created_at')->paginate(2);
+
+        // dd($user->posts_count);
+
+        return view('adminer.views.post-me', compact('posts', 'user'))->with('success');
+
+        // return view('adminer.views.post-me', compact('post',));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -110,8 +144,9 @@ class PostsController extends Controller
     public function edit(Post $post)
     {
         //
+        $user = Auth::user();
 
-        return view('adminer.dashboard.edit', compact('post'));
+        return view('adminer.views.post-edit', compact('post', 'user'));
     }
 
     /**
@@ -132,7 +167,8 @@ class PostsController extends Controller
 
         $post->title = $request->input('title');
         $post->content = $request->input('content');
-        
+        $post->iSet = "Update his Post";
+        $post->created_at = now();
         $post->update();
 
         // $user = $post->user;
@@ -141,37 +177,127 @@ class PostsController extends Controller
 
         // dd($post);
 
-        return view('adminer.dashboard.show', compact('post'));
-
+        return to_route('posts.dashbord')->with('success', 'Updating Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        // dd($post);
+
+        return back()->with('success', 'Deleting Successfully');
     }
 
-    public function like(Post $post, Request $request)
+    // public function like(Post $post, Request $request)
+    // {
+
+    //     $user = $request->user(); // Obtenez l'utilisateur actuel
+
+    //     $post->like($user);
+
+    //     dd($user);
+
+    //     // dd($post->like($user));
+
+    //     return redirect()->route('posts.index');
+    // }
+
+    // public function unlike(Post $post,  Request $request)
+    // {
+    //     $user = $request->user(); // Obtenez l'utilisateur actuel
+
+    //     $post->unlike($user);
+
+    //     return redirect()->route('posts.index');
+    // }
+
+    public function liking(Request $request, Post $post)
     {
 
-        $user = $request->user(); // Obtenez l'utilisateur actuel
+        $post = Post::find($post->id);
 
-        $post->like($user);
+        if (!$post) {
+            return response()->json([
+                'error' => 'Post not found',
+                // 'req' => request(),
+                // 'request' => $post,
+            ], 404);
+        }
+
+        $user = Auth::user();
+
+        $userId = $user->id;
+
+        $user = User::find($userId);
+
+        if (!$user) {
+
+            return response()->json([
+                'message' => 'Une eurreu s\'est produite...Veillez vous connecter ....',
+                // 'status' => 'unlike',
+                // 'count' => Post::find(1)->likes->count(),
+                // 'id' => request()->postId,
+                // 'request' => $request,
+            ], 401);
+        }
 
 
-        return redirect()->route('posts.index');
+        if ($post->isLikedBy($user)) {
+
+            $post->unlike($user);
+
+            return response()->json([
+                'status' => 'unlike',
+                'message' => 'Post unliked successfully',
+                'count' => Post::find($post->id)->likes->count(),
+                'id' => $post->id,
+                // 'request' => $request,
+            ], 200);
+        } else {
+
+            $post->like($user);
+
+            return response()->json([
+                'status' => 'like',
+                'message' => 'Post liked successfully',
+                // 'postId' => $postId,
+                // 'user' => $user,
+                'count' => Post::find($post->id)->likes->count(),
+                'id' => $post->id
+            ], 200);
+        }
+
+
+        // dd($post);
+        // Code to handle liking the post
+        // Update post likes count in database
+
+
     }
 
-    public function unlike(Post $post,  Request $request)
-    {
-        $user = $request->user(); // Obtenez l'utilisateur actuel
+    // public function unlike(Request $request)
+    // {
+    //     // $postId = $request->input('post_id');
+    //     $post = Post::find(1);
+    //     if (!$post) {
+    //         return response()->json(['error' => 'Post not found'], 404);
+    //     }
+    //     $user = User::find(1);
 
-        $post->unlike($user);
+    //     // Code to handle unliking the post
+    //     // Update post likes count in database
 
-        return redirect()->route('posts.index');
-    }
+    //     if ($user) {
+
+    //         $post->unlike($user);
+
+    //     }
+    //     return response()->json(['message' => 'Post unliked successfully'], 200);
+    // }
 
     // Méthode pour commenter un post
     public function comment(Request $request, Post $post)
@@ -183,5 +309,21 @@ class PostsController extends Controller
     public function share(Request $request, Post $post)
     {
         // Code pour partager le post
+    }
+
+    public function myPost()
+    {
+        return view('my-post');
+    }
+
+    public function fresh(Request $request)
+    {
+
+        $posts = Post::orderByDesc('created_at')->paginate(2);
+
+        return response()->json([
+            "status" => true,
+            "data" => $posts
+        ]);
     }
 }

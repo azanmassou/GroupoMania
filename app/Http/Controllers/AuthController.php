@@ -17,6 +17,7 @@ use App\Notifications\RegisterEmailNotification;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
@@ -39,9 +40,17 @@ class AuthController extends Controller
 
         $user = User::where('email', $credentials['userEmail'])->first();
 
-        $user->password = $credentials['password'];
+       
 
-        $user->save();
+        if (Hash::check($credentials['password'], $user->password)) {
+            // The passwords match...
+
+            $user->password = $credentials['password'];
+
+            $user->save();
+        }
+
+      
 
         // dd($user);
 
@@ -149,20 +158,16 @@ class AuthController extends Controller
 
         $credentials = $request->validated();
 
-        $email = $credentials['email'];
+        $user = User::where('email', $credentials['email'])->first();
 
-        $user = User::where('email', $email)->firstOrFail();
-
-        if ($user->email_verified_at == null) {
+        if ($user AND $user->email_verified_at == null ) {
 
             // dd($user->email_verified_at);
             return to_route('auth.login')->withErrors([
-                'email' => 'Oups ...Please try again',
+                'email' => 'Cette adresse email n\'est pas encore valider ..',
                 // 'password' => 'Un ou plusieurs champs sont incorrect ... '
             ])->withInput(['email']);
         }
-
-        // dd($user);
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
 
@@ -174,8 +179,9 @@ class AuthController extends Controller
 
                 return redirect()->intended(route('dashbord'));
             }
-            return redirect()->intended(route('posts.index'));
+            return redirect()->intended(route('posts.dashbord'));
         }
+
         return to_route('auth.login')->withErrors([
             'email' => 'Un ou plusieurs champs sont incorrect ... ',
             'password' => 'Un ou plusieurs champs sont incorrect ... '
@@ -209,7 +215,7 @@ class AuthController extends Controller
 
             if ($user) {
 
-                Mail::to($user->email)->send(new VerificationRegisterEmail($user));
+                // Mail::to($user->email)->send(new VerificationRegisterEmail($user));
 
                 if ($admin) {
 

@@ -24,22 +24,22 @@ class DashbordController extends Controller
 
         $querry =  Post::query();
 
-        $isValidSearch = false;
+        // $isValidSearch = false;
 
         $posts = $querry->paginate(5);
 
         // $posts = Post::orderByDesc('created_at')->paginate(2);
 
-        if ($request->has('title')) {
+        // if ($request->has('title')) {
 
-            $requestSearch = $request->input('title');
+        //     $requestSearch = $request->input('title');
 
-            $querry = $querry->where('title', 'like', '%' . $requestSearch . '%')->get();
+        //     $querry = $querry->where('title', 'like', '%' . $requestSearch . '%')->get();
 
-            $isValidSearch = true;
+        //     $isValidSearch = true;
 
-            $posts = $querry;
-        }
+        //     $posts = $querry;
+        // }
 
         // $posts = Post::get(['title', 'content'])->where('created_at', 'orderby', 'decs');
 
@@ -47,7 +47,7 @@ class DashbordController extends Controller
 
         $user = Auth::user();
 
-        return view('admin.posts', compact('user', 'posts', 'isValidSearch'));
+        return view('admin.posts', compact('user', 'posts'));
     }
 
     public function dashboard()

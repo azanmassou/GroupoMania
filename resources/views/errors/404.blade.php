@@ -1,5 +1,9 @@
 @extends('adminer.dashboard.layouts')
 
+@section('title')
+    Page 404
+@endsection
+
 @section('content')
     
       <div class="wrapper">

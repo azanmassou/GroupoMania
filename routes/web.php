@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashbordController;
 use App\Http\Controllers\EmailVerificationController;
@@ -22,15 +24,38 @@ use App\Http\Controllers\UsersController;
 */
 
 
+// Route::get('add-post', [PostsController::class, 'myPost']);
+// Route::post('submit-post', [PostsController::class, 'submitPost'])->name('postSubmit');
+
 // Routes Generiques
 
 Route::get('/', [HomeController::class, 'welcome'])->name('racine');
 
-Route::prefix('home')->middleware(['auth'])->group(function () {
+Route::prefix('dashbord')->middleware(['auth'])->group(function () {
+
+    // Post
     Route::resource('posts', PostsController::class);
     Route::resource('users', UsersController::class);
-    Route::post('/posts/{post}/like', [PostsController::class, 'like'])->name('posts.like');
-    Route::post('/posts/{post}/unlike', [PostsController::class, 'unlike'])->name('posts.unlike');
+    Route::get('/posts-me', [PostsController::class, 'me'])->name('posts.me');
+    Route::get('/posts/fresh', [PostsController::class, 'fresh'])->name('posts.fresh');
+
+
+    Route::get('/posts', [PostsController::class, 'index'])->name('posts.dashbord');
+
+    // Like Post
+    // Route::post('/posts/{post}/unlike', [PostsController::class, 'unlike'])->name('posts.unlike');
+    // Route::post('/posts/{post}/like', [PostsController::class, 'like'])->name('posts.like');
+    Route::post('/like/{post}', [PostsController::class, 'liking'])->name('posts.like');
+    // Route::post('/unlike', [PostsController::class, 'unlike'])->name('posts.unlike');
+
+    // Profile
+    Route::get('/profile', [AppController::class, 'profile'])->name('app.profile');
+   
+    //  Account
+     Route::get('/account-setting', [AccountController::class, 'account_setting'])->name('account-setting');
+     Route::get('/privacy-setting', [AccountController::class, 'privacy_setting'])->name('privacy-setting');
+
+    
 })->name('home');
 
 Route::prefix('admin')->middleware(['role:admin'])->group(function () {
@@ -39,7 +64,7 @@ Route::prefix('admin')->middleware(['role:admin'])->group(function () {
     Route::get('/dashbord-Postes', [DashbordController::class, 'posts'])->name('dashbord.posts');
     Route::get('/dashbord', [DashbordController::class, 'dashboard'])->name('dashbord');
     // Route::get('/dashbord-Utilisateurs', [DashbordController::class, 'users'])->name('dashbord.users');
-})->name('dashbord');
+});
 
 
 // Routes d'Autentification

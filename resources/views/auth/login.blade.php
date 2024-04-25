@@ -1,5 +1,8 @@
 @extends('adminer.dashboard.layouts')
 
+@section('title')
+    Login
+@endsection
 
 @section('content')
 <div class="wrapper">
@@ -59,5 +62,6 @@
             </div>
         </div>
     </section>
+
 </div>
 @endsection

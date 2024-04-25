@@ -23,11 +23,11 @@ class RegisterRequest extends FormRequest
     {
         return [
             //
-            'name' => ['required', 'min:2', 'max:5'],
+            'name' => ['required', 'min:4', 'max:9'],
             'email' => ['required', 'email' ,'unique:users'],
-            'password' => ['required', 'min:2'],
+            'password' => ['required', 'min:4'],
             // 'passwords' => ['required', 'min:2'],
-            'remember_token' => ['accepted' , 'required'],
+            'remember_token' => ['accepted' , 'required','on'],
 
         ];
     }

@@ -1,8 +1,7 @@
 @section('links')
-    @if ($isValidSearch)
-    @else
+    
         {{ $posts->links() }}
-    @endif
+  
 @endsection
 
 @section('title')

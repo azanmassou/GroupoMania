@@ -5,7 +5,7 @@
                 <div class="media-height p-3" data-scrollbar="init">
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/01.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/01.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">
@@ -15,7 +15,7 @@
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/02.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/02.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/03.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/03.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/04.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/04.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">
@@ -45,7 +45,7 @@
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/11.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/11.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/02.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/02.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">
@@ -65,7 +65,7 @@
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-online">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/03.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/03.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">
@@ -75,7 +75,7 @@
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-away">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/12.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/12.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">
@@ -85,7 +85,7 @@
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <div class="iq-profile-avatar status-away">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/01.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/01.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">
@@ -95,7 +95,7 @@
                     </div>
                     <div class="d-flex align-items-center">
                         <div class="iq-profile-avatar">
-                            <img class="rounded-circle avatar-50" src="../assets/images/user/02.jpg"
+                            <img class="rounded-circle avatar-50" src="{{asset('masterAdminer/assets/images/user/02.jpg')}}"
                                 alt="">
                         </div>
                         <div class="ms-3">

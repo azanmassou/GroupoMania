@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Entreprise::factory(10)->create();
         // \App\Models\User::factory(15)->create();
         // \App\Models\Post::factory(15)->create();
-        \App\Models\Role::factory(5)->create();
+        \App\Models\Role::factory(1)->create();
 
         // \App\Models\Salle::factory(10)->create([
         //     'TypeSalle' => fake()->userName(),

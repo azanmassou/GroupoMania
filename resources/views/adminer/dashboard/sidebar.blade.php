@@ -1,14 +1,39 @@
+@php
+
+$route = request()->route()->getName();
+
+$route1 = $route2 = $route3 = false;
+
+switch ($route) {
+    case 'posts.index':
+        $route1 = true;
+        break;
+    case 'app.profile':
+        $route2 = true;
+        break;
+    case 'dashbord.users':
+        $route3 = true;
+        break;
+
+    default:
+        $route1 = true;
+        break;
+}
+
+@endphp
+
+
 <div class="iq-sidebar  sidebar-default ">
     <div id="sidebar-scrollbar">
         <nav class="iq-sidebar-menu">
             <ul id="iq-sidebar-toggle" class="iq-menu">
-                <li class="active">
-                    <a href="{{route('posts.index')}}" class=" ">
+                <li  @class(['active' => $route1])>
+                    <a href="{{route('posts.dashbord')}}" class=" ">
                         <i class="las la-newspaper"></i><span>Acceuil</span>
                     </a>
                 </li>
-                <li class="">
-                    <a href="../app/profile.html" class=" ">
+                <li @class(['active' => $route2])>
+                    <a href="{{route('app.profile')}}" class=" ">
                         <i class="las la-user"></i><span>Profile</span>
                     </a>
                 </li>

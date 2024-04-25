@@ -15,6 +15,7 @@ class Post extends Model
         'content',
         'user_id',
         'image',
+        'iSet',
         'likes',
 
     ];
@@ -44,7 +45,6 @@ class Post extends Model
         if (!$this->isLikedBy($user)) {
             $like = new Like();
             $like->user_id = $user->id;
-
             $this->likes()->save($like);
         }
     }

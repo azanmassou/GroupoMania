@@ -1,5 +1,9 @@
 @extends('adminer.dashboard.layouts')
 
+@section('title')
+    Welcome
+@endsection
+
 @section('content')
     <div class="wrapper">
         <section class="sign-in-page">
@@ -15,7 +19,7 @@
                     @include('auth.partials.slider')
                     <div class="col-md-6 bg-white pt-5 pt-5 pb-lg-0 pb-5">
                         <div class="sign-in-from">
-                            <img src="../assets/images/login/mail.png" width="80" alt="">
+                            {{-- <img height="40px" src="{{ asset('Logos/1653474647318_icon-left-font.png') }}" width="80" alt=""> --}}
                             <h1 class="mt-3 mb-0">@include('logo')</h1>
                             {{-- <p>Content de te revoir ... Allez Rejoins tes amis ...</p> --}}
                             

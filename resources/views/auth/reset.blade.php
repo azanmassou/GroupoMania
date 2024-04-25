@@ -1,5 +1,9 @@
 @extends('adminer.dashboard.layouts')
 
+@section('title')
+    Reset Password
+@endsection
+
 @section('content')
     <div class="wrapper">
         <section class="sign-in-page">

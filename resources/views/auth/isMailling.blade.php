@@ -1,5 +1,9 @@
 @extends('adminer.dashboard.layouts')
 
+@section('title')
+    Mailling
+@endsection
+
 @section('content')
 
       <div class="wrapper">

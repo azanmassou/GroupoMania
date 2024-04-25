@@ -2,9 +2,9 @@
     <div class="iq-navbar-custom">
         <nav class="navbar navbar-expand-lg navbar-light p-0">
             <div class="iq-navbar-logo d-flex justify-content-between">
-                <a href="../dashboard/index.html">
-                    <img src="../assets/images/logo.png" class="img-fluid" alt="">
-                    <span>SocialV</span>
+                <a href="{{ route('posts.dashbord') }}">
+                    <img src="{{ asset('Logos/1653474647318_icon-left-font.png') }}" class="img-fluid" alt="">
+                    {{-- <span>Groupomania</span> --}}
                 </a>
                 <div class="iq-menu-bt align-self-center">
                     <div class="wrapper-menu">
@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav  ms-auto navbar-list">
                     <li>
-                        <a href="../dashboard/index.html" class="  d-flex align-items-center">
+                        <a href="#" class="  d-flex align-items-center">
                             <i class="ri-home-line"></i>
                         </a>
                     </li>
@@ -282,25 +282,24 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="#" class="   d-flex align-items-center dropdown-toggle"
-                            id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <img src="../assets/images/user/1.jpg" class="img-fluid rounded-circle me-3"
-                                alt="user">
+                        <a href="#" class="   d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ asset('masterAdminer/assets/images/user/1.jpg') }}"
+                                class="img-fluid rounded-circle me-3" alt="user">
                             <div class="caption">
-                                <h6 class="mb-0 line-height">Bni Cyst</h6>
+                                <h6 class="mb-0 line-height">{{ $user->name }}</h6>
                             </div>
                         </a>
                         <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                             <div class="card shadow-none m-0">
                                 <div class="card-header  bg-primary">
                                     <div class="header-title">
-                                        <h5 class="mb-0 text-white">Hello Bni Cyst</h5>
+                                        <h5 class="mb-0 text-white">Hello {{ $user->name }}</h5>
                                         <span class="text-white font-size-12">Available</span>
                                     </div>
                                 </div>
                                 <div class="card-body p-0 ">
-                                    <a href="../app/profile.html" class="iq-sub-card iq-bg-primary-hover">
+                                    <a href="{{ route('app.profile') }}" class="iq-sub-card iq-bg-primary-hover">
                                         <div class="d-flex align-items-center">
                                             <div class="rounded card-icon bg-soft-primary">
                                                 <i class="ri-file-user-line"></i>
@@ -311,7 +310,8 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="../app/profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+                                    <a href="{{ route('users.edit', ['user' => $user]) }}"
+                                        class="iq-sub-card iq-bg-warning-hover">
                                         <div class="d-flex align-items-center">
                                             <div class="rounded card-icon bg-soft-warning">
                                                 <i class="ri-profile-line"></i>
@@ -322,7 +322,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="../app/account-setting.html" class="iq-sub-card iq-bg-info-hover">
+                                    <a href="{{ route('account-setting') }}" class="iq-sub-card iq-bg-info-hover">
                                         <div class="d-flex align-items-center">
                                             <div class="rounded card-icon bg-soft-info">
                                                 <i class="ri-account-box-line"></i>
@@ -333,7 +333,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="../app/privacy-setting.html" class="iq-sub-card iq-bg-danger-hover">
+                                    <a href="{{ route('privacy-setting') }}" class="iq-sub-card iq-bg-danger-hover">
                                         <div class="d-flex align-items-center">
                                             <div class="rounded card-icon bg-soft-danger">
                                                 <i class="ri-lock-line"></i>
@@ -346,10 +346,18 @@
                                         </div>
                                     </a>
                                     <div class="d-inline-block w-100 text-center p-3">
-                                        <a class="btn btn-primary iq-sign-btn" href="../dashboard/sign-in.html"
+                                        {{-- <a class="btn btn-primary iq-sign-btn" href="../dashboard/sign-in.html"
                                             role="button">Sign
-                                            out<i class="ri-login-box-line ms-2"></i></a>
+                                            out<i class="ri-login-box-line ms-2"></i></a> --}}
+                                        <form action="{{ route('auth.logout') }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary iq-sign-btn"> <i
+                                                    class="ri-login-box-line ms-2"></i> Signout </a></button>
+
+                                        </form>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

@@ -1,7 +1,8 @@
 <div class="col-md-6 text-center pt-5">
     <div class="sign-in-detail text-white">
-        <a class="sign-in-logo mb-5" href="#"><img src="{{asset('masterAdminer/assets/images/logo-full.png')}}"
+        <a class="sign-in-logo mb-5" href="#"><img src="{{asset('Logos/1653474647318_icon-left-font.png')}}"
                 class="img-fluid" alt="logo"></a>
+                {{-- @include('logo//') --}}
         <div class="sign-slider overflow-hidden ">
             <ul class="swiper-wrapper list-inline m-0 p-0 ">
                 <li class="swiper-slide">

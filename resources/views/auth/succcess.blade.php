@@ -1,5 +1,10 @@
 @extends('adminer.dashboard.layouts')
 
+
+@section('title')
+    Operation Successfully
+@endsection
+
 @section('content')
 
       <div class="wrapper">

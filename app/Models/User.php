@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -64,24 +65,4 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    /**
-     * Get the role attribute.
-     *
-     * @param  mixed  $value
-     * @return string
-     */
-    // public function getRoleAttribute($value)
-    // {
-    //     $roles = [
-    //         1 => 'admin',
-    //         2 => 'user',
-    //         3 => 'subscribed',
-    //     ];
-
-    //     return $roles[$value] ?? $value; // Retourne l'étiquette correspondante ou l'entier tel quel
-    // }
-
-
-
-    
 }
