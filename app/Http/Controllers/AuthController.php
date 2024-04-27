@@ -192,6 +192,8 @@ class AuthController extends Controller
 
         $credentials = $request->validated();
 
+        // dd($request);
+
         $credentials['email_verified_token'] = Str::random(60); // Générer un token
 
         // dd($credentials);
@@ -219,7 +221,7 @@ class AuthController extends Controller
 
                 if ($admin) {
 
-                    // Notification::send($admin, new RegisterEmailNotification($user));
+                    // Notification::send($admin, new RegisterEmailNotification($user, $credentials['email_verified_token']));
                 }
             }
 

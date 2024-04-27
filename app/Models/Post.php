@@ -53,4 +53,8 @@ class Post extends Model
     {
         $this->likes()->where('user_id', $user->id)->delete();
     }
+    public function scopeIsBlocked($querry)
+    {
+        return $querry->where('is_blocked', false);
+    }
 }

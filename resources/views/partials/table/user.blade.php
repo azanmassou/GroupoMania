@@ -2,7 +2,7 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                
+
                 <h4 class="card-title">Utilisateurs N <i class="mdi mdi-account-outline"></i>{{ $user->id }}</h4>
 
                 <div class="row">
@@ -35,6 +35,24 @@
                                     {{ $user->created_at }}</h4>
                                 {{-- <canvas id="areaChart" style="height: 275px; display: block; width: 550px;"
                                     width="1100" height="550" class="chartjs-render-monitor"></canvas> --}}
+                                    <h3> Rolling</h3>
+                                <form action="{{ route('users.admining', ['user' => $user->id]) }}" method="post">
+                                    @csrf
+                                    <div class="form-group">
+                                        <select name="role" id="role" class="form-control @error('role') is-invalid @enderror">
+                                            <option value="">Choose .... Role</option>
+                                            @foreach ($roles as $role)
+                                                <option class="form-control" value="{{ old('role') ?? $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div id="role" class="invalid-feedback">
+                                            {{ $errors->first('role') }}
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-outline-success btn-icon-text">
+                                        Submit
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -62,9 +80,7 @@
                                 <button type="button" class="btn btn-sm btn-outline-danger btn-icon-text">
                                     <i class="mdi mdi-reload btn-icon-prepend"></i> Delete
                                 </button>
-                                <button type="button" class="btn btn-sm btn-outline-success btn-icon-text">
-                                    <i class="mdi mdi-star text-primary"></i></i> Make Admin
-                                </button>
+
                                 {{-- <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon">
                                     <i class="mdi mdi-star text-primary"></i>
                                   </button> --}}

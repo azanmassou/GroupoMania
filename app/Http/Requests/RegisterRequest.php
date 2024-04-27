@@ -27,7 +27,7 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'email' ,'unique:users'],
             'password' => ['required', 'min:4'],
             // 'passwords' => ['required', 'min:2'],
-            'remember_token' => ['accepted' , 'required','on'],
+            'remember_token' => ['accepted' , 'required'],
 
         ];
     }

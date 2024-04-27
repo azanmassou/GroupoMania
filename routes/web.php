@@ -63,6 +63,9 @@ Route::prefix('admin')->middleware(['role:admin'])->group(function () {
     Route::resource('users', UsersController::class)->only(['destroy', 'show','index']);
     Route::get('/dashbord-Postes', [DashbordController::class, 'posts'])->name('dashbord.posts');
     Route::get('/dashbord', [DashbordController::class, 'dashboard'])->name('dashbord');
+    Route::post('/dashbord/{post}/block', [PostsController::class, 'block'])->name('posts.block');
+    Route::get('/dashbord/{post}/details', [PostsController::class, 'details'])->name('posts.details');
+    Route::post('/dashbord/{user}/admining', [UsersController::class, 'admining'])->name('users.admining');
     // Route::get('/dashbord-Utilisateurs', [DashbordController::class, 'users'])->name('dashbord.users');
 });
 

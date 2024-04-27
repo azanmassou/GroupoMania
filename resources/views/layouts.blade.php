@@ -25,8 +25,10 @@
     <link href="{{ asset('masterDashboard/assets/css/style.css') }}" rel="stylesheet">
     <!-- End layout styles -->
     {{-- <link rel="shortcut icon" href="assets/images/favicon.ico" /> --}}
-    <link rel="shortcut icon" href="{{ asset('masterDashboard/assets/images/favicon.ico') }}" />
+    {{-- <link rel="shortcut icon" href="{{ asset('masterDashboard/assets/images/favicon.ico') }}" /> --}}
 
+    <link rel="shortcut icon" href="{{ asset('Logos/icon-left-font-monochrome-white.png') }}" />
+    
     {{-- Importation Css JS Vite --}}
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('content');
             $table->string('image')->nullable();
             $table->string('iSet');
-            $table->unsignedInteger('nbLikes')->default(0);
+            // $table->unsignedInteger('nbLikes')->default(0);
+            $table->boolean('is_blocked')->default(false);
             $table->timestamps();
         });
     }

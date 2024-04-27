@@ -22,7 +22,7 @@ class User extends Authenticatable
      */
 
     protected $attributes = [
-        'role_id' => 2,
+        // 'role_id' => 2,
     ];
 
     protected $fillable = [
@@ -65,4 +65,8 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function scopeIsBlocked($querry)
+    {
+        return $querry->where('is_blocked', false);
+    }
 }

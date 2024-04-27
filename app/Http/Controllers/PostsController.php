@@ -47,7 +47,11 @@ class PostsController extends Controller
             $isValidSearch = true;
         }
 
-        $posts = $posts->orderByDesc('created_at')->paginate(2);
+        $posts = $posts->orderByDesc('created_at')->isblocked()->paginate(2);
+
+        // $posts = $posts->isblocked();
+
+        // dd($posts);
 
         $user = Auth::user();
 
@@ -325,5 +329,29 @@ class PostsController extends Controller
             "status" => true,
             "data" => $posts
         ]);
+    }
+    public function block(Request $request, Post $post)
+    {
+
+        // dd($post->is_blocked);
+
+        if ($post->is_blocked) {
+
+            $post->is_blocked = false;
+
+            $post->save();
+        } else {
+            $post->is_blocked = true;
+
+            $post->save();
+        }
+
+        return back();
+    }
+    public function details(Request $request, Post $post)
+    {
+        dd($post);
+
+        return view('');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangePasswordRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,8 +48,9 @@ class UsersController extends Controller
     public function show(User $user)
     {
         //
+        $roles = Role::all();
 
-        return view('admin.user', compact('user'));
+        return view('admin.user', compact('user', 'roles'));
     }
 
     /**
@@ -77,7 +79,6 @@ class UsersController extends Controller
                 'password' => 'Les mots de password sont pas identique',
                 'passwords' => 'Les mots de password sont pas identique',
             ])->with('#chang-pwd');
-
         }
 
         // if ($credentials['password'] !== $user->password) {
@@ -88,11 +89,11 @@ class UsersController extends Controller
         //     ])->with('return', '#chang-pwd');
         // }
 
-        if(Hash::check($credentials['password'], $user->password)){
-            return to_route('users.edit',['user' => $user])->withInput(['current'])->withErrors([
-                        'current' => 'Please ... Enter Correct Password',
-                        // 'passwords' => 'Les mots de password sont pas identique',
-                    ])->with('return', '#chang-pwd');
+        if (Hash::check($credentials['password'], $user->password)) {
+            return to_route('users.edit', ['user' => $user])->withInput(['current'])->withErrors([
+                'current' => 'Please ... Enter Correct Password',
+                // 'passwords' => 'Les mots de password sont pas identique',
+            ])->with('return', '#chang-pwd');
         }
 
         // $user->update(['password' => $credentials['password']]);
@@ -115,16 +116,40 @@ class UsersController extends Controller
 
     public function blockUser(User $user)
     {
-        // $user = User::find($id);
-
-        // if (!$user) {
-        //     // Gérer le cas où l'utilisateur n'est pas trouvé
-        //     return response()->json(['message' => 'Utilisateur non trouvé.'], 404);
-        // }
 
         $user->is_blocked = true;
         $user->save();
 
         return view('dashbord.users');
+    }
+    public function admining(Request $request, User $user)
+    {
+
+        if ($request->input('role') === null) {
+
+            return back()->withInput(['role'])->withErrors(
+                [
+                    'role' => "Please ... Choose a valid role"
+                ]
+            );
+        }
+
+        // dd($user->role->id, $request->input('role'));
+
+        if ($user->role->id === $request->input('role')) {
+
+            return back()->withInput(['role'])->withErrors(
+                [
+                    'role' => "Please ... This role is already assigned"
+                ]
+            );
+
+        }
+        
+        $user->role_id = $request->input('role');
+
+        $user->save();
+
+        return back()->with('success', " $user->role");
     }
 }
