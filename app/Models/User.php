@@ -69,4 +69,12 @@ class User extends Authenticatable
     {
         return $querry->where('is_blocked', false);
     }
+    public function scopeRecentUser($querry)
+    {
+        return $querry->orderByDesc('created_at', 'desc');
+    }
+    public function scopeIsNotAdmin($querry)
+    {
+        return $querry->where('role_id', '!=', 1);
+    }
 }

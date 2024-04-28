@@ -2,7 +2,7 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">La liste des utilisateurs</h4>
+                <h4 class="card-title">Role User Liste</h4>
                 <div class="table-responsive">
                     @if ($users->isEmpty())
                         <h1>is Empty</h1>

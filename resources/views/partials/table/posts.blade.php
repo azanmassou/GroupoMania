@@ -34,7 +34,7 @@
                                         <td>
 
                                             <button 
-                                                class="btn btn-link btn-sm"><a href="{{route('posts.details', ['post' => $post->id])}}">Voir le Post</a></button>
+                                                class="btn btn-link btn-sm"><a href="{{route('posts.show', ['post' => $post->id])}}">Voir le Post</a></button>
                                         </td>
                                         <td>
                                             <label @class([
@@ -75,6 +75,7 @@
                                                     <form action="{{ route('posts.destroy', ['post' => $post->id]) }}"
                                                         method="post">
                                                         @csrf
+                                                        @method("DELETE")
                                                         <button type="submit"
                                                             class="btn btn-sm btn-outline-danger btn-icon-text">
                                                             <i class="mdi mdi-reload btn-icon-prepend"></i> Delete

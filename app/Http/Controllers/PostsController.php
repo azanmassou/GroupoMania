@@ -124,8 +124,8 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-
-        return view('adminer.dashboard.show', compact('post',));
+        
+        return view('admin.post', compact('post'));
     }
     public function me()
     {
@@ -348,10 +348,5 @@ class PostsController extends Controller
 
         return back();
     }
-    public function details(Request $request, Post $post)
-    {
-        dd($post);
-
-        return view('');
-    }
+    
 }

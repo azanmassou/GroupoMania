@@ -80,13 +80,20 @@ switch ($route) {
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('dashbord.posts') }}">
-                <span class="menu-title">Poste</span>
+                <span class="menu-title">Postes</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('users.index') }}">
                 <span class="menu-title">Users</span>
+                {{-- <i class="mdi mdi-format-list-bulleted menu-icon"></i> --}}
+                <i class="mdi mdi-table-large menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('roles.index') }}">
+                <span class="menu-title">Roles</span>
                 {{-- <i class="mdi mdi-format-list-bulleted menu-icon"></i> --}}
                 <i class="mdi mdi-table-large menu-icon"></i>
             </a>

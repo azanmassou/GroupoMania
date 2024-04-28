@@ -5,14 +5,14 @@
 @endsection
 
 @section('title')
-    Dashbord
+    Role User Liste
 @endsection
 
 @section('pageTitle')
     <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white me-2">
             <i class="mdi mdi-table-large menu-icon"></i>
-        </span> Utilisateurs
+        </span> Role User Liste
     </h3>
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
@@ -24,7 +24,7 @@
 @endsection
 
 @section('pageContent')
-    @include('partials.table.users')
+    @include('partials.table.listing')
 @endsection
 
 

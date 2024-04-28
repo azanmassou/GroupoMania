@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,11 +17,19 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(5);
+        $querry = User::query();
+
+        $users = $querry->isnotadmin()->recentuser()->paginate(3);
+
         // User::create([
         //     'name' => 'Happy',
         //     'password' => Hash::make('0000'),
         //     'email' => 'azanmassouhappylouis@gmail.com'
+        // ]);
+        // Post::create([
+        //     'title' => 'Big Jaeger',
+        //     'content' => "Hello world world from the google website,
+        //     'image' => '1714206843.jpeg'
         // ]);
 
         return view('admin.users', compact('users'));
@@ -109,19 +118,38 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
         //
+
+        // dd($user);
+
+        $user->delete();
+
+        return to_route('users.index');
     }
 
-    public function blockUser(User $user)
+    public function block(User $user)
     {
 
-        $user->is_blocked = true;
-        $user->save();
+        dd($user);
 
-        return view('dashbord.users');
+        if ($user->is_blocked) {
+
+            $user->is_blocked = false;
+
+            $user->save();
+        } else {
+
+            $user->is_blocked = true;
+
+            $user->save();
+        }
+
+        return back();
     }
+ 
+
     public function admining(Request $request, User $user)
     {
 
@@ -143,9 +171,8 @@ class UsersController extends Controller
                     'role' => "Please ... This role is already assigned"
                 ]
             );
-
         }
-        
+
         $user->role_id = $request->input('role');
 
         $user->save();

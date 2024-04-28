@@ -57,4 +57,9 @@ class Post extends Model
     {
         return $querry->where('is_blocked', false);
     }
+    public function scopeRecentPost($querry)
+    {
+        return $querry->orderByDesc('created_at', 'desc');
+    }
+   
 }

@@ -24,9 +24,9 @@ class DashbordController extends Controller
 
         $querry =  Post::query();
 
-        // $isValidSearch = false;
+        $isValidSearch = false;
 
-        $posts = $querry->paginate(5);
+        $posts = $querry->recentpost()->paginate(3);
 
         // $posts = Post::orderByDesc('created_at')->paginate(2);
 
@@ -43,7 +43,7 @@ class DashbordController extends Controller
 
         // $posts = Post::get(['title', 'content'])->where('created_at', 'orderby', 'decs');
 
-        // dd($requestSearch);
+        // dd($posts);
 
         $user = Auth::user();
 
@@ -56,50 +56,21 @@ class DashbordController extends Controller
         return view('admin.dashboard');
     }
 
-    public function users(SearchUserRequest $request)
-    {
+    // public function show(Post $post)
+    // {
+    //     $user = Auth::user();
 
-        $querry =  User::query();
+    //     return view('dashbord.show', compact('post', 'user'));
 
-        $isValidSearch = false;
-
-        $users = $querry->paginate(5);
-
-        if ($request->has('name')) {
-
-            $requestSearch = $request->input('name');
-
-            $querry = $querry->where('name', 'like', '%' . $requestSearch . '%')->get();
-
-            $isValidSearch = true;
-
-            $users = $querry;
-        }
-
-        // $posts = Post::get(['title', 'content'])->where('created_at', 'orderby', 'decs');
-
-        // dd($requestSearch);
-
-        $user = Auth::user();
-
-        return view('admin.users', compact('user', 'users', 'isValidSearch'));
-    }
-
-    public function show(Post $post)
-    {
-        $user = Auth::user();
-
-        return view('dashbord.show', compact('post', 'user'));
-
-    }
+    // }
 
     
-    public function destroy(Post $post)
-    {
-        $post->delete();
+    // public function destroy(Post $post)
+    // {
+    //     $post->delete();
 
-        // dd($post);
+    //     // dd($post);
 
-        return to_route('dashbord.list')->with('success', 'successful making');
-    }
+    //     return to_route('dashbord.list')->with('success', 'successful making');
+    // }
 }

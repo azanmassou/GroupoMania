@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,14 +60,17 @@ Route::prefix('dashbord')->middleware(['auth'])->group(function () {
 })->name('home');
 
 Route::prefix('admin')->middleware(['role:admin'])->group(function () {
-    // Route::resource('posts', DashbordController::class)->only(['destroy', 'show']);
+    Route::resource('posts', PostsController::class)->only(['destroy', 'show']);
     Route::resource('users', UsersController::class)->only(['destroy', 'show','index']);
+    Route::resource('roles', RolesController::class);
     Route::get('/dashbord-Postes', [DashbordController::class, 'posts'])->name('dashbord.posts');
     Route::get('/dashbord', [DashbordController::class, 'dashboard'])->name('dashbord');
     Route::post('/dashbord/{post}/block', [PostsController::class, 'block'])->name('posts.block');
-    Route::get('/dashbord/{post}/details', [PostsController::class, 'details'])->name('posts.details');
+    Route::post('/dashbord/{user}/block', [UsersController::class, 'block'])->name('users.block');
+    Route::get('/dashbord/{role}/listing', [RolesController::class, 'listing'])->name('users.listing');
+    // Route::get('/dashbord/{post}/show', [PostsController::class, 'details'])->name('posts.details');
     Route::post('/dashbord/{user}/admining', [UsersController::class, 'admining'])->name('users.admining');
-    // Route::get('/dashbord-Utilisateurs', [DashbordController::class, 'users'])->name('dashbord.users');
+    // Route::get('/dashbord/role', [UsersController::class, 'role'])->name('users.role');
 });
 
 
